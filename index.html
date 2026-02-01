@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+    <style>
+        body {
+            font-family: sans-serif; padding: 20px; background: #121212; color: #ffff;
+        }
+        #log { background: #000; padding: 10px; height: 300px; overflow-y:
+                scroll; border: 1px solid #333}
+        .status-on {color: #32ffc3
+        }
+        .status-off {color: #ff6d6d
+        }
+    </style>
+</head>
+<body>
+<h1>Rhodie Websocket</h1>
+<p id="status" class="status-off">Connecting...</p>
+<form id="message-form">
+    <input id="message-input" type="text"
+    placeholder="Send Cargo..." required>
+    <button type="submit">Deploy Message</button>
+</form>
+<h3>Live Stream Logs</h3>
+<pre id="log"></pre>
+
+</body>
+</html>

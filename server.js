@@ -15,5 +15,13 @@ wss.on("connection",(socket, request) => {
        })
    });
 
-   socket.on("error")
+   socket.on("error", (err) => {
+       console.error(`Error: ${err.message}: ${ip}`);
+   })
+
+   socket.on("close", () => {
+       console.log ("Client Disconnected")
+   } )
 });
+
+console.log("WebSocket Server is live on ws://localhost:8080");

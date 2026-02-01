@@ -27,4 +27,52 @@
 <pre id="log"></pre>
 
 </body>
+<script>
+    const StatusEL = document.getElementById("status");
+    const log = document.getElementById("log");
+    const input = document.getElementById("message-input");
+
+    //1. initiate websocket connection
+    const socket = new WebSocket('ws://localhost:8080');
+
+    const appendLog = (label, message) => {
+        const entry = `${new Date().toLocaleTimeString()}
+        ${label} ${message}\n`
+           log.textContent = entry + log.textContent;
+    }
+
+    socket.addEventListener('open', ()=> {
+        StatusEL.textContent = "Connected: ws://localhost:8080"
+        StatusEL.className = "status-on";
+        appendLog("[SYSTEM]", "tunnel established.")
+    });
+
+    socket.addEventListener('close', ()=> {
+        StatusEL.textContent = "Disconnected"
+        StatusEL.className = "status-off";
+        appendLog("[SYSTEM]", "Tunnel Collapsed.");
+    });
+
+    socket.addEventListener('message', (e) => {
+        appendLog("RECEIVED", e.data);
+    })
+
+    document.getElementById("message-form").addEventListener('submit', (e)=> {
+        e.preventDefault();
+
+        if(socket.readyState !== WebSocket.OPEN) {
+            appendLog('[ERROR]', "No active tunnel found");
+        }
+
+        const msg = input.value.trim();
+        socket.send(msg);
+        appendLog("[SENT]", msg);
+        input.value = "";
+    })
+
+
+
+
+
+</script>
 </html>
